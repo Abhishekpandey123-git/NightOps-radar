@@ -146,7 +146,8 @@ def main():
     t = threading.Thread(target=background_scheduler, daemon=True)
     t.start()
 
-    # Launch HTTP Server
+    # Launch HTTP Server (with SO_REUSEADDR enabled)
+    HTTPServer.allow_reuse_address = True
     server = HTTPServer((HOST, PORT), RadarRequestHandler)
     print(f"[Server] 🚀 Serving NightOps Radar on http://localhost:{PORT}")
     print(f"[Server] 📡 API Endpoint: http://localhost:{PORT}/api/gsoc/issues")
