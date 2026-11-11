@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-echo "Starting NightOps GSoC Radar on http://localhost:8080..."
-python3 -m http.server 8080
+echo "Starting NightOps GSoC Radar Independent Backend on http://localhost:8080..."
+python3 server.py

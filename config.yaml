@@ -1,0 +1,53 @@
+# NightOps GSoC Radar — Independent Backend Configuration
+poll_interval_seconds: 600 # 10 minutes (600s)
+
+# Monitored GSoC 2026 Organizations and Target Repositories
+organizations:
+  - id: sympy
+    name: SymPy
+    repo: sympy/sympy
+    gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/sympy
+    mentors: "@oscarbenjamin, @asmeurer"
+    active: true
+
+  - id: openfoodfacts
+    name: Open Food Facts
+    repo: openfoodfacts/openfoodfacts-server
+    gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/open-food-facts
+    mentors: "@teolemon, @alexgarel"
+    active: true
+
+  - id: apache
+    name: Apache Software Foundation
+    repo: apache/iggy
+    gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/apache-software-foundation
+    mentors: "@justinmclean"
+    active: true
+
+  - id: blender
+    name: Blender Foundation
+    repo: blender/blender
+    gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/blender
+    mentors: "@sergey, @brecht"
+    active: true
+
+  - id: django
+    name: Django Software Foundation
+    repo: django/django
+    gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/django
+    mentors: "@carltongibson, @charettes"
+    active: true
+
+  - id: videolan
+    name: VideoLAN (VLC)
+    repo: videolan/vlc
+    gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/videolan
+    mentors: "@j-b, @robUx4"
+    active: true
+
+  - id: cncf
+    name: Cloud Native Computing Foundation
+    repo: kubernetes/kubernetes
+    gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/cloud-native-computing-foundation
+    mentors: "@dims, @liggitt"
+    active: true

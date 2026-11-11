@@ -1,0 +1,2 @@
+# Optional dependencies (server.py runs with 0 dependencies using standard library)
+pyyaml>=6.0
