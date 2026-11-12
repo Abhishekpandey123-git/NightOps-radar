@@ -16,6 +16,51 @@ import threading
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 
+def load_dotenv(filepath=".env"):
+    """Zero-dependency .env loader so tokens in .env are loaded automatically."""
+    if not os.path.exists(filepath):
+        return
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                k, v = line.split("=", 1)
+                k = k.strip()
+                v = v.strip().strip('"').strip("'")
+                if k and v and k not in os.environ:
+                    os.environ[k] = v
+    except Exception as e:
+        print(f"[Config] Warning reading .env: {e}")
+
+def save_env_vars(updates: dict, filepath=".env"):
+    """Persist updated tokens to local .env file (gitignored)."""
+    existing = {}
+    if os.path.exists(filepath):
+        with open(filepath, "r", encoding="utf-8") as f:
+            for line in f:
+                s = line.strip()
+                if s and not s.startswith("#") and "=" in s:
+                    k, v = s.split("=", 1)
+                    existing[k.strip()] = v.strip()
+    for k, v in updates.items():
+        if v:
+            existing[k] = v
+            os.environ[k] = v
+    with open(filepath, "w", encoding="utf-8") as f:
+        for k, v in existing.items():
+            f.write(f"{k}={v}\n")
+
+def mask_token(val: str) -> str:
+    if not val:
+        return ""
+    if len(val) <= 8:
+        return "••••"
+    return val[:4] + "••••" + val[-4:]
+
+load_dotenv()
+
 # Ensure local imports work
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from backend.ai_gateway import AIGateway
@@ -144,6 +189,29 @@ class RadarRequestHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"status": "poll_triggered", "count": len(SCOUT.issues_db)}).encode("utf-8"))
             return
 
+        elif path == "/api/gsoc/tokens":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            gh = SCOUT.github_token or ""
+            gem = AI.gemini_key or ""
+            oai = AI.openai_key or ""
+            oss_provider = "Groq (Llama-3.1)" if AI.groq_key else ("HuggingFace (Qwen-2.5)" if AI.hf_token else ("OpenRouter (Llama-3.3)" if AI.openrouter_key else ("Ollama Local" if AI._check_ollama() else "")))
+            self.wfile.write(json.dumps({
+                "status": "ok",
+                "github_token_set": bool(gh),
+                "github_token_masked": mask_token(gh),
+                "rate_limit_tier": "5,000 req/hr" if gh else "60 req/hr (unauthenticated)",
+                "gemini_key_set": bool(gem),
+                "gemini_key_masked": mask_token(gem),
+                "openai_key_set": bool(oai),
+                "openai_key_masked": mask_token(oai),
+                "oss_ai_set": bool(oss_provider),
+                "oss_ai_provider": oss_provider,
+                "ai_enabled": AI.is_available()
+            }).encode("utf-8"))
+            return
+
         elif path == "/api/health":
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
@@ -158,6 +226,11 @@ class RadarRequestHandler(SimpleHTTPRequestHandler):
             }).encode("utf-8"))
             return
 
+        elif path == "/favicon.ico":
+            self.send_response(204)
+            self.end_headers()
+            return
+
         elif path in ["/", "/radar"]:
             self.path = "/index.html"
 
@@ -165,6 +238,62 @@ class RadarRequestHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         parsed = urlparse(self.path)
+        if parsed.path == "/api/gsoc/tokens":
+            length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
+            try:
+                data = json.loads(body)
+            except Exception:
+                self.send_response(400)
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": "Invalid JSON"}).encode("utf-8"))
+                return
+
+            updates = {}
+            if "github_token" in data and data["github_token"].strip():
+                gh = data["github_token"].strip()
+                SCOUT.github_token = gh
+                updates["GITHUB_TOKEN"] = gh
+            if "gemini_api_key" in data and data["gemini_api_key"].strip():
+                gem = data["gemini_api_key"].strip()
+                AI.gemini_key = gem
+                AI._active_gemini_model = None
+                AI._discovered_models = None
+                updates["GEMINI_API_KEY"] = gem
+            if "openai_api_key" in data and data["openai_api_key"].strip():
+                oai = data["openai_api_key"].strip()
+                AI.openai_key = oai
+                updates["OPENAI_API_KEY"] = oai
+            if "groq_api_key" in data and data["groq_api_key"].strip():
+                gq = data["groq_api_key"].strip()
+                AI.groq_key = gq
+                updates["GROQ_API_KEY"] = gq
+            if "hf_token" in data and data["hf_token"].strip():
+                hf = data["hf_token"].strip()
+                AI.hf_token = hf
+                updates["HF_TOKEN"] = hf
+            if "openrouter_key" in data and data["openrouter_key"].strip():
+                ort = data["openrouter_key"].strip()
+                AI.openrouter_key = ort
+                updates["OPENROUTER_API_KEY"] = ort
+
+            if updates:
+                save_env_vars(updates)
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "status": "ok",
+                "github_token_set": bool(SCOUT.github_token),
+                "github_token_masked": mask_token(SCOUT.github_token),
+                "rate_limit_tier": "5,000 req/hr" if SCOUT.github_token else "60 req/hr (unauthenticated)",
+                "gemini_key_set": bool(AI.gemini_key),
+                "openai_key_set": bool(AI.openai_key),
+                "ai_enabled": AI.is_available()
+            }).encode("utf-8"))
+            return
+
         if parsed.path in ["/api/gsoc/poll", "/api/gsoc/issue/deep_fetch", "/api/gsoc/issue/pin"]:
             return self.do_GET()
         self.send_response(404)
