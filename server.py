@@ -80,13 +80,13 @@ def load_config():
             pass
     return {
         "organizations": [
-            {"id": "sympy", "name": "SymPy", "repo": "sympy/sympy", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/orgs/sympy", "mentors": "@oscarbenjamin, @asmeurer", "tier": 1, "active": True},
-            {"id": "openfoodfacts", "name": "Open Food Facts", "repo": "openfoodfacts/openfoodfacts-server", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/orgs/open-food-facts", "mentors": "@teolemon, @alexgarel", "tier": 1, "active": True},
-            {"id": "apache", "name": "Apache Software Foundation", "repo": "apache/iggy", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/orgs/apache-software-foundation", "mentors": "@justinmclean", "tier": 1, "active": True},
-            {"id": "blender", "name": "Blender Foundation", "repo": "blender/blender", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/orgs/blender", "mentors": "@sergey, @brecht", "tier": 1, "active": True},
-            {"id": "django", "name": "Django Software Foundation", "repo": "django/django", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/orgs/django", "mentors": "@carltongibson, @charettes", "tier": 1, "active": True},
-            {"id": "videolan", "name": "VideoLAN (VLC)", "repo": "videolan/vlc", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/orgs/videolan", "mentors": "@j-b, @robUx4", "tier": 2, "active": True},
-            {"id": "cncf", "name": "Cloud Native Computing Foundation", "repo": "kubernetes/kubernetes", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/orgs/cloud-native-computing-foundation", "mentors": "@dims, @liggitt", "tier": 1, "active": True}
+            {"id": "sympy", "name": "SymPy", "repo": "sympy/sympy", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/organizations/sympy", "mentors": "@oscarbenjamin, @asmeurer", "tier": 1, "active": True},
+            {"id": "openfoodfacts", "name": "Open Food Facts", "repo": "openfoodfacts/openfoodfacts-server", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/organizations/open-food-facts", "mentors": "@teolemon, @alexgarel", "tier": 1, "active": True},
+            {"id": "apache", "name": "Apache Software Foundation", "repo": "apache/iggy", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/organizations/apache-software-foundation", "mentors": "@justinmclean", "tier": 1, "active": True},
+            {"id": "blender", "name": "Blender Foundation", "repo": "blender/blender", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/organizations/blender", "mentors": "@sergey, @brecht", "tier": 1, "active": True},
+            {"id": "django", "name": "Django Software Foundation", "repo": "django/django", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/organizations/django", "mentors": "@carltongibson, @charettes", "tier": 1, "active": True},
+            {"id": "videolan", "name": "VideoLAN (VLC)", "repo": "videolan/vlc", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/organizations/videolan", "mentors": "@j-b, @robUx4", "tier": 2, "active": True},
+            {"id": "cncf", "name": "Cloud Native Computing Foundation", "repo": "kubernetes/kubernetes", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/organizations/cloud-native-computing-foundation", "mentors": "@dims, @liggitt", "tier": 1, "active": True}
         ]
     }
 
@@ -181,12 +181,51 @@ class RadarRequestHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"status": "ok", "issue_id": issue_id, "pinned": res}).encode("utf-8"))
             return
 
+        elif path == "/api/gsoc/poll/settings":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "status": "ok",
+                "paused": SCOUT.paused,
+                "tier1_interval": SCOUT.tier1_interval,
+                "tier2_interval": SCOUT.tier2_interval
+            }).encode("utf-8"))
+            return
+
+        elif path == "/api/gsoc/poll/target":
+            repo = query.get("repo", [""])[0]
+            org_id = query.get("org_id", [""])[0] or None
+            if not repo or "/" not in repo:
+                self.send_response(400)
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": "Missing or invalid repo"}).encode("utf-8"))
+                return
+            found = SCOUT.poll_single_target(repo, org_id=org_id)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"status": "ok", "repo": repo, "count": len(found)}).encode("utf-8"))
+            return
+
         elif path == "/api/gsoc/poll":
-            SCOUT.poll_tiered_cycle()
+            threading.Thread(target=SCOUT.poll_tiered_cycle, daemon=True).start()
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             self.wfile.write(json.dumps({"status": "poll_triggered", "count": len(SCOUT.issues_db)}).encode("utf-8"))
+            return
+
+        elif path == "/api/gsoc/usage":
+            refresh_gh = query.get("refresh", ["false"])[0].lower() in ["true", "1"]
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "status": "ok",
+                "github": SCOUT.get_rate_limit_status(refresh=refresh_gh),
+                "ai": AI.get_usage_report()
+            }).encode("utf-8"))
             return
 
         elif path == "/api/gsoc/tokens":
@@ -279,6 +318,9 @@ class RadarRequestHandler(SimpleHTTPRequestHandler):
 
             if updates:
                 save_env_vars(updates)
+                AI._cooldown_until = 0.0
+                AI._provider_cooldowns.clear()
+                SCOUT.get_rate_limit_status(refresh=True)
 
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
@@ -294,7 +336,62 @@ class RadarRequestHandler(SimpleHTTPRequestHandler):
             }).encode("utf-8"))
             return
 
-        if parsed.path in ["/api/gsoc/poll", "/api/gsoc/issue/deep_fetch", "/api/gsoc/issue/pin"]:
+        if parsed.path == "/api/gsoc/poll/settings":
+            length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
+            try:
+                data = json.loads(body)
+            except Exception:
+                data = {}
+            if "paused" in data:
+                SCOUT.paused = bool(data["paused"])
+            if "tier1_interval" in data:
+                SCOUT.tier1_interval = max(10, int(data["tier1_interval"]))
+            if "tier2_interval" in data:
+                SCOUT.tier2_interval = max(10, int(data["tier2_interval"]))
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "status": "ok",
+                "paused": SCOUT.paused,
+                "tier1_interval": SCOUT.tier1_interval,
+                "tier2_interval": SCOUT.tier2_interval
+            }).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/gsoc/poll/custom":
+            length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
+            try:
+                data = json.loads(body)
+            except Exception:
+                data = {}
+            target_repo = data.get("target_repo", "").strip()
+            tier_scope = data.get("tier_scope", "all")
+            days_window = int(data.get("days_window", 30))
+            since_iso = data.get("since_iso") or None
+            until_iso = data.get("until_iso") or None
+
+            threading.Thread(
+                target=SCOUT.poll_custom_range,
+                kwargs={
+                    "target_repo": target_repo,
+                    "tier_scope": tier_scope,
+                    "days_window": days_window,
+                    "since_iso": since_iso,
+                    "until_iso": until_iso
+                },
+                daemon=True
+            ).start()
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"status": "custom_poll_started"}).encode("utf-8"))
+            return
+
+        if parsed.path in ["/api/gsoc/poll", "/api/gsoc/poll/target", "/api/gsoc/issue/deep_fetch", "/api/gsoc/issue/pin"]:
             return self.do_GET()
         self.send_response(404)
         self.end_headers()

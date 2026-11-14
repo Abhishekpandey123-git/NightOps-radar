@@ -108,14 +108,14 @@ organizations:
   - id: sympy
     name: SymPy
     repo: sympy/sympy
-    gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/sympy
+    gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/sympy
     mentors: "@oscarbenjamin, @asmeurer"
     active: true
 
   - id: openfoodfacts
     name: Open Food Facts
     repo: openfoodfacts/openfoodfacts-server
-    gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/open-food-facts
+    gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/open-food-facts
     mentors: "@teolemon, @alexgarel"
     active: true
 ```
