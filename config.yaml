@@ -14,7 +14,7 @@ organizations:
   name: Apache Software Foundation
   repo: apache/iggy
   projectCount: 34
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/apache-software-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/apache-software-foundation
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -22,7 +22,7 @@ organizations:
   name: Blender Foundation
   repo: blender/blender
   projectCount: 8
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/blender-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/blender-foundation
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -30,7 +30,7 @@ organizations:
   name: CNCF
   repo: kubernetes/kubernetes
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/cncf
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/cncf
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -38,7 +38,7 @@ organizations:
   name: Ceph
   repo: ceph/ceph
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/ceph
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/ceph
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -46,7 +46,7 @@ organizations:
   name: Dart
   repo: dart-lang/sdk
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/dart
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/dart
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -54,7 +54,7 @@ organizations:
   name: Debian
   repo: debian/debootstrap
   projectCount: 7
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/debian
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/debian
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -62,7 +62,7 @@ organizations:
   name: Django Software Foundation
   repo: django/django
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/django-software-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/django-software-foundation
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -70,7 +70,7 @@ organizations:
   name: Drupal Association
   repo: drupal/drupal
   projectCount: 6
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/drupal-association
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/drupal-association
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -78,7 +78,7 @@ organizations:
   name: FFmpeg
   repo: FFmpeg/FFmpeg
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/ffmpeg
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/ffmpeg
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -86,7 +86,7 @@ organizations:
   name: FreeCAD
   repo: FreeCAD/FreeCAD
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/freecad
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/freecad
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -94,7 +94,7 @@ organizations:
   name: GNU Compiler Collection (GCC)
   repo: gcc-mirror/gcc
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/gnu-compiler-collection-gcc
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/gnu-compiler-collection-gcc
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -102,7 +102,7 @@ organizations:
   name: Git
   repo: git/git
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/git
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/git
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -110,7 +110,7 @@ organizations:
   name: Jenkins
   repo: jenkinsci/jenkins
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/jenkins
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/jenkins
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -118,7 +118,7 @@ organizations:
   name: Joplin
   repo: laurent22/joplin
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/joplin
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/joplin
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -126,7 +126,7 @@ organizations:
   name: Kotlin Foundation
   repo: JetBrains/kotlin
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/kotlin-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/kotlin-foundation
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -134,7 +134,7 @@ organizations:
   name: Kubeflow
   repo: kubeflow/kubeflow
   projectCount: 9
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/kubeflow
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/kubeflow
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -142,7 +142,7 @@ organizations:
   name: LLVM Compiler Infrastructure
   repo: llvm/llvm-project
   projectCount: 13
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/llvm-compiler-infrastructure
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/llvm-compiler-infrastructure
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -150,7 +150,7 @@ organizations:
   name: MariaDB
   repo: MariaDB/server
   projectCount: 8
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/mariadb
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/mariadb
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -158,7 +158,7 @@ organizations:
   name: Metasploit
   repo: rapid7/metasploit-framework
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/metasploit
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/metasploit
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -166,7 +166,7 @@ organizations:
   name: Neovim
   repo: neovim/neovim
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/neovim
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/neovim
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -174,7 +174,7 @@ organizations:
   name: Open Food Facts
   repo: openfoodfacts/openfoodfacts-server
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/open-food-facts
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/open-food-facts
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -182,7 +182,7 @@ organizations:
   name: OpenMRS
   repo: openmrs/openmrs-core
   projectCount: 8
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/openmrs
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/openmrs
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -190,7 +190,7 @@ organizations:
   name: PostgreSQL
   repo: postgres/postgres
   projectCount: 7
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/postgresql
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/postgresql
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -198,7 +198,7 @@ organizations:
   name: Python Software Foundation
   repo: python/cpython
   projectCount: 13
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/python-software-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/python-software-foundation
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -206,7 +206,7 @@ organizations:
   name: Ruby
   repo: ruby/ruby
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/ruby
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/ruby
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -214,7 +214,7 @@ organizations:
   name: Swift
   repo: swiftlang/swift
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/swift
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/swift
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -222,7 +222,7 @@ organizations:
   name: SymPy
   repo: sympy/sympy
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/sympy
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/sympy
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -230,7 +230,7 @@ organizations:
   name: The Julia Language
   repo: JuliaLang/julia
   projectCount: 12
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/the-julia-language
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/the-julia-language
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -238,7 +238,7 @@ organizations:
   name: The Linux Foundation
   repo: torvalds/linux
   projectCount: 19
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/the-linux-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/the-linux-foundation
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -246,7 +246,7 @@ organizations:
   name: The Rust Foundation
   repo: rust-lang/rust
   projectCount: 13
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/the-rust-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/the-rust-foundation
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -254,7 +254,7 @@ organizations:
   name: VideoLAN
   repo: videolan/vlc
   projectCount: 15
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/videolan
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/videolan
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -262,7 +262,7 @@ organizations:
   name: Wikimedia Foundation
   repo: wikimedia/mediawiki
   projectCount: 8
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/wikimedia-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/wikimedia-foundation
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -270,7 +270,7 @@ organizations:
   name: Zulip
   repo: zulip/zulip
   projectCount: 11
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/zulip
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/zulip
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -278,7 +278,7 @@ organizations:
   name: rocket.chat
   repo: RocketChat/Rocket.Chat
   projectCount: 10
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/rocket-chat
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/rocket-chat
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -286,7 +286,7 @@ organizations:
   name: webpack
   repo: webpack/webpack
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/webpack
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/webpack
   mentors: '@maintainers'
   tier: 1
   active: true
@@ -294,7 +294,7 @@ organizations:
   name: "52\xB0North Spatial Information Research GmbH"
   repo: 52North/sos
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/52-north-spatial-information-research-gmbh
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/52-north-spatial-information-research-gmbh
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -302,7 +302,7 @@ organizations:
   name: AOSSIE
   repo: AOSSIE-Org/AOSSIE
   projectCount: 22
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/aossie
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/aossie
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -310,7 +310,7 @@ organizations:
   name: API Dash
   repo: foss42/apidash
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/api-dash
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/api-dash
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -318,7 +318,7 @@ organizations:
   name: AboutCode
   repo: aboutcode-org/scancode-toolkit
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/aboutcode
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/aboutcode
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -326,7 +326,7 @@ organizations:
   name: Accord Project
   repo: accordproject/cicero
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/accord-project
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/accord-project
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -334,7 +334,7 @@ organizations:
   name: Alaska
   repo: alaska-research/alaska
   projectCount: 8
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/alaska
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/alaska
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -342,7 +342,7 @@ organizations:
   name: AnkiDroid
   repo: ankidroid/Anki-Android
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/ankidroid
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/ankidroid
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -350,7 +350,7 @@ organizations:
   name: ArduPilot
   repo: ArduPilot/ardupilot
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/ardupilot
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/ardupilot
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -358,7 +358,7 @@ organizations:
   name: BRL-CAD
   repo: BRL-CAD/brlcad
   projectCount: 8
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/brl-cad
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/brl-cad
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -366,7 +366,7 @@ organizations:
   name: Boa
   repo: boa-dev/boa
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/boa
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/boa
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -374,7 +374,7 @@ organizations:
   name: C2SI
   repo: c2si/c2si-core
   projectCount: 14
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/c2si
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/c2si
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -382,7 +382,7 @@ organizations:
   name: CCExtractor Development
   repo: CCExtractor/ccextractor
   projectCount: 6
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/ccextractor-development
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/ccextractor-development
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -390,7 +390,7 @@ organizations:
   name: CERN-HSF
   repo: HSF/hsf.github.io
   projectCount: 26
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/cern-hsf
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/cern-hsf
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -398,7 +398,7 @@ organizations:
   name: CGAL Project
   repo: CGAL/cgal
   projectCount: 7
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/cgal-project
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/cgal-project
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -406,7 +406,7 @@ organizations:
   name: CRIU
   repo: checkpoint-restore/criu
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/criu
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/criu
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -414,7 +414,7 @@ organizations:
   name: CircuitVerse.org
   repo: CircuitVerse/CircuitVerse
   projectCount: 6
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/circuitverse-org
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/circuitverse-org
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -422,7 +422,7 @@ organizations:
   name: Cuneiform Digital Library Initiative (CDLI)
   repo: cdli-gh/CDLI-framework
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/cuneiform-digital-library-initiative-cdli
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/cuneiform-digital-library-initiative-cdli
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -430,7 +430,7 @@ organizations:
   name: D Language Foundation
   repo: dlang/dmd
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/d-language-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/d-language-foundation
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -438,7 +438,7 @@ organizations:
   name: DBpedia
   repo: dbpedia/extraction-framework
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/dbpedia
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/dbpedia
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -446,7 +446,7 @@ organizations:
   name: Data for the Common Good
   repo: data-for-the-common-good/commons
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/data-for-the-common-good
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/data-for-the-common-good
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -454,7 +454,7 @@ organizations:
   name: DeepChem
   repo: deepchem/deepchem
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/deepchem
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/deepchem
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -462,7 +462,7 @@ organizations:
   name: EROFS filesystem
   repo: erofs/erofs-utils
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/erofs-filesystem
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/erofs-filesystem
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -470,7 +470,7 @@ organizations:
   name: Eclipse Foundation
   repo: eclipse/che
   projectCount: 6
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/eclipse-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/eclipse-foundation
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -478,7 +478,7 @@ organizations:
   name: FLARE
   repo: mandiant/flare-floss
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/flare
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/flare
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -486,7 +486,7 @@ organizations:
   name: FOSSASIA
   repo: fossasia/open-event-server
   projectCount: 24
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/fossasia
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/fossasia
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -494,7 +494,7 @@ organizations:
   name: FOSSology
   repo: fossology/fossology
   projectCount: 7
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/fossology
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/fossology
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -502,7 +502,7 @@ organizations:
   name: Fortran-lang
   repo: fortran-lang/stdlib
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/fortran-lang
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/fortran-lang
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -510,7 +510,7 @@ organizations:
   name: Free and Open Source Silicon Foundation
   repo: fossi-foundation/fossi-foundation.github.io
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/free-and-open-source-silicon-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/free-and-open-source-silicon-foundation
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -518,7 +518,7 @@ organizations:
   name: GNOME Foundation
   repo: GNOME/gtk
   projectCount: 6
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/gnome-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/gnome-foundation
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -526,7 +526,7 @@ organizations:
   name: GNU Image Manipulation Program
   repo: GNOME/gimp
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/gnu-image-manipulation-program
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/gnu-image-manipulation-program
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -534,7 +534,7 @@ organizations:
   name: GNU Mailman
   repo: mailman/mailman
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/gnu-mailman
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/gnu-mailman
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -542,7 +542,7 @@ organizations:
   name: GNU Octave
   repo: octave/octave
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/gnu-octave
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/gnu-octave
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -550,7 +550,7 @@ organizations:
   name: GNU Project
   repo: gnu/gnulib
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/gnu-project
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/gnu-project
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -558,7 +558,7 @@ organizations:
   name: GNU Radio
   repo: gnuradio/gnuradio
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/gnu-radio
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/gnu-radio
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -566,7 +566,7 @@ organizations:
   name: GRAME
   repo: grame-cncm/faust
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/grame
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/grame
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -574,7 +574,7 @@ organizations:
   name: 'Gambit: The package for computation in game theory'
   repo: gambitproject/gambit
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/gambit-the-package-for-computation-in-game-theory
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/gambit-the-package-for-computation-in-game-theory
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -582,7 +582,7 @@ organizations:
   name: Gemini CLI
   repo: google-gemini/gemini-cli
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/gemini-cli
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/gemini-cli
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -590,7 +590,7 @@ organizations:
   name: Genome Assembly and Annotation
   repo: GAA-org/gaa
   projectCount: 7
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/genome-assembly-and-annotation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/genome-assembly-and-annotation
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -598,7 +598,7 @@ organizations:
   name: GeomScale
   repo: GeomScale/volesti
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/geomscale
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/geomscale
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -606,7 +606,7 @@ organizations:
   name: German Center for Open Source AI
   repo: GC-OSAI/core
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/german-center-for-open-source-ai
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/german-center-for-open-source-ai
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -614,7 +614,7 @@ organizations:
   name: Global Alliance for Genomics and Health
   repo: ga4gh/standards
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/global-alliance-for-genomics-and-health
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/global-alliance-for-genomics-and-health
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -622,7 +622,7 @@ organizations:
   name: Graphite
   repo: GraphiteEditor/Graphite
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/graphite
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/graphite
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -630,7 +630,7 @@ organizations:
   name: Haiku
   repo: haiku/haiku
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/haiku
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/haiku
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -638,7 +638,7 @@ organizations:
   name: Haskell.org
   repo: haskell/cabal
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/haskell-org
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/haskell-org
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -646,7 +646,7 @@ organizations:
   name: HumanAI
   repo: HumanAI-Foundation/HumanAI
   projectCount: 15
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/humanai
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/humanai
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -654,7 +654,7 @@ organizations:
   name: INCF
   repo: incf/incf.github.io
   projectCount: 23
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/incf
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/incf
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -662,7 +662,7 @@ organizations:
   name: IOOS
   repo: ioos/ioos.github.io
   projectCount: 7
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/ioos
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/ioos
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -670,7 +670,7 @@ organizations:
   name: International Catrobat Association
   repo: Catrobat/Catroid
   projectCount: 12
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/international-catrobat-association
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/international-catrobat-association
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -678,7 +678,7 @@ organizations:
   name: Internet Archive
   repo: internetarchive/openlibrary
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/internet-archive
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/internet-archive
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -686,7 +686,7 @@ organizations:
   name: Invesalius
   repo: invesalius/invesalius3
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/invesalius
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/invesalius
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -694,7 +694,7 @@ organizations:
   name: JBoss Community
   repo: wildfly/wildfly
   projectCount: 8
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/jboss-community
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/jboss-community
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -702,7 +702,7 @@ organizations:
   name: JSON Schema
   repo: json-schema-org/json-schema-spec
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/json-schema
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/json-schema
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -710,7 +710,7 @@ organizations:
   name: JabRef e.V.
   repo: JabRef/jabref
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/jabref-e-v
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/jabref-e-v
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -718,7 +718,7 @@ organizations:
   name: JdeRobot
   repo: JdeRobot/RoboticsAcademy
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/jderobot
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/jderobot
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -726,7 +726,7 @@ organizations:
   name: Jitsi
   repo: jitsi/jitsi-meet
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/jitsi
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/jitsi
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -734,7 +734,7 @@ organizations:
   name: Joomla!
   repo: joomla/joomla-cms
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/joomla
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/joomla
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -742,7 +742,7 @@ organizations:
   name: KDE Community
   repo: KDE/kwin
   projectCount: 12
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/kde-community
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/kde-community
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -750,7 +750,7 @@ organizations:
   name: Kiwix
   repo: kiwix/kiwix-lib
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/kiwix
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/kiwix
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -758,7 +758,7 @@ organizations:
   name: KolibriOS Project Team
   repo: kolibrios/kolibri
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/kolibrios-project-team
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/kolibrios-project-team
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -766,7 +766,7 @@ organizations:
   name: Konflux
   repo: konflux-ci/konflux
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/konflux
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/konflux
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -774,7 +774,7 @@ organizations:
   name: Kornia
   repo: kornia/kornia
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/kornia
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/kornia
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -782,7 +782,7 @@ organizations:
   name: KubeVirt
   repo: kubevirt/kubevirt
   projectCount: 1
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/kubevirt
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/kubevirt
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -790,7 +790,7 @@ organizations:
   name: LabLua
   repo: lablua/luarocks
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/lablua
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/lablua
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -798,7 +798,7 @@ organizations:
   name: Learning Equality
   repo: learningequality/kolibri
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/learning-equality
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/learning-equality
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -806,7 +806,7 @@ organizations:
   name: Learning Unlimited
   repo: LearningUnlimited/ESP-Website
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/learning-unlimited
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/learning-unlimited
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -814,7 +814,7 @@ organizations:
   name: LibreCube Initiative
   repo: librecube/protocube
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/librecube-initiative
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/librecube-initiative
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -822,7 +822,7 @@ organizations:
   name: LibreHealth
   repo: LibreHealth/toolkit
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/librehealth
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/librehealth
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -830,7 +830,7 @@ organizations:
   name: LibreOffice
   repo: LibreOffice/core
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/libreoffice
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/libreoffice
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -838,7 +838,7 @@ organizations:
   name: Liquid Galaxy project
   repo: LiquidGalaxyLAB/Liquid-Galaxy
   projectCount: 11
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/liquid-galaxy-project
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/liquid-galaxy-project
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -846,7 +846,7 @@ organizations:
   name: MDAnalysis
   repo: MDAnalysis/mdanalysis
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/mdanalysis
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/mdanalysis
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -854,7 +854,7 @@ organizations:
   name: MIT App Inventor
   repo: mit-csl/appinventor-sources
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/mit-app-inventor
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/mit-app-inventor
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -862,7 +862,7 @@ organizations:
   name: MLLAM
   repo: mllam/mllam
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/mllam
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/mllam
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -870,7 +870,7 @@ organizations:
   name: Machine Learning for Science (ML4SCI)
   repo: ml4sci/ml4sci
   projectCount: 33
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/machine-learning-for-science-ml4sci
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/machine-learning-for-science-ml4sci
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -878,7 +878,7 @@ organizations:
   name: MalariaGEN
   repo: malariagen/malariagen-data-python
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/malariagen
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/malariagen
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -886,7 +886,7 @@ organizations:
   name: Meshery
   repo: meshery/meshery
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/meshery
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/meshery
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -894,7 +894,7 @@ organizations:
   name: MetaBrainz Foundation Inc
   repo: metabrainz/musicbrainz-server
   projectCount: 7
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/metabrainz-foundation-inc
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/metabrainz-foundation-inc
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -902,7 +902,7 @@ organizations:
   name: MetaCall
   repo: metacall/core
   projectCount: 6
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/metacall
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/metacall
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -910,7 +910,7 @@ organizations:
   name: Metaflow
   repo: Netflix/metaflow
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/metaflow
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/metaflow
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -918,7 +918,7 @@ organizations:
   name: Mixxx
   repo: mixxxdj/mixxx
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/mixxx
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/mixxx
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -926,7 +926,7 @@ organizations:
   name: MoFA Org
   repo: mofa-org/mofa
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/mofa-org
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/mofa-org
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -934,7 +934,7 @@ organizations:
   name: MoganLab
   repo: XmacsLabs/mogan
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/moganlab
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/moganlab
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -942,7 +942,7 @@ organizations:
   name: National Resource for Network Biology (NRNB)
   repo: nrnb/cytoscape
   projectCount: 7
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/national-resource-for-network-biology-nrnb
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/national-resource-for-network-biology-nrnb
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -950,7 +950,7 @@ organizations:
   name: Neuroinformatics Unit
   repo: neuroinformatics-unit/movement
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/neuroinformatics-unit
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/neuroinformatics-unit
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -958,7 +958,7 @@ organizations:
   name: Neutralinojs
   repo: neutralinojs/neutralinojs
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/neutralinojs
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/neutralinojs
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -966,7 +966,7 @@ organizations:
   name: NixOS Foundation
   repo: NixOS/nixpkgs
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/nixos-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/nixos-foundation
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -974,7 +974,7 @@ organizations:
   name: NumFOCUS
   repo: numfocus/numfocus.github.io
   projectCount: 27
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/numfocus
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/numfocus
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -982,7 +982,7 @@ organizations:
   name: OSGeo (Open Source Geospatial Foundation)
   repo: OSGeo/gdal
   projectCount: 6
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/osgeo-open-source-geospatial-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/osgeo-open-source-geospatial-foundation
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -990,7 +990,7 @@ organizations:
   name: OWASP Foundation
   repo: OWASP/CheatSheetSeries
   projectCount: 26
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/owasp-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/owasp-foundation
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -998,7 +998,7 @@ organizations:
   name: Open Genome Informatics
   repo: galaxyproject/galaxy
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/open-genome-informatics
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/open-genome-informatics
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1006,7 +1006,7 @@ organizations:
   name: Open HealthCare Network
   repo: coronasafe/care
   projectCount: 1
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/open-healthcare-network
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/open-healthcare-network
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1014,7 +1014,7 @@ organizations:
   name: Open Robotics
   repo: osrf/gazebo
   projectCount: 8
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/open-robotics
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/open-robotics
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1022,7 +1022,7 @@ organizations:
   name: Open Science Initiative for Perfusion Imaging
   repo: OSIPI/OSIPI_TF6.1
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/open-science-initiative-for-perfusion-imaging
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/open-science-initiative-for-perfusion-imaging
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1030,7 +1030,7 @@ organizations:
   name: Open Science Labs
   repo: OpenScienceLabs/community
   projectCount: 7
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/open-science-labs
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/open-science-labs
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1038,7 +1038,7 @@ organizations:
   name: Open Technologies Alliance - GFOSS
   repo: eellak/gfoss
   projectCount: 7
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/open-technologies-alliance-gfoss
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/open-technologies-alliance-gfoss
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1046,7 +1046,7 @@ organizations:
   name: Open Transit Software Foundation
   repo: OneBusAway/onebusaway
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/open-transit-software-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/open-transit-software-foundation
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1054,7 +1054,7 @@ organizations:
   name: OpenAFS
   repo: openafs/openafs
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/openafs
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/openafs
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1062,7 +1062,7 @@ organizations:
   name: OpenAstronomy
   repo: astropy/astropy
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/openastronomy
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/openastronomy
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1070,7 +1070,7 @@ organizations:
   name: OpenELIS Global
   repo: OpenELIS-Global/OpenELIS-Global-2
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/openelis-global
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/openelis-global
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1078,7 +1078,7 @@ organizations:
   name: OpenMS Inc
   repo: OpenMS/OpenMS
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/openms-inc
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/openms-inc
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1086,7 +1086,7 @@ organizations:
   name: OpenStreetMap
   repo: openstreetmap/openstreetmap-website
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/openstreetmap
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/openstreetmap
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1094,7 +1094,7 @@ organizations:
   name: OpenVINO Toolkit
   repo: openvinotoolkit/openvino
   projectCount: 18
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/openvino-toolkit
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/openvino-toolkit
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1102,7 +1102,7 @@ organizations:
   name: OpenWISP
   repo: openwisp/openwisp-controller
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/openwisp
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/openwisp
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1110,7 +1110,7 @@ organizations:
   name: Oppia Foundation
   repo: oppia/oppia
   projectCount: 7
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/oppia-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/oppia-foundation
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1118,7 +1118,7 @@ organizations:
   name: PEcAn Project
   repo: PecanProject/pecan
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/pecan-project
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/pecan-project
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1126,7 +1126,7 @@ organizations:
   name: Pharo Consortium
   repo: pharo-project/pharo
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/pharo-consortium
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/pharo-consortium
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1134,7 +1134,7 @@ organizations:
   name: Processing Foundation
   repo: processing/processing4
   projectCount: 6
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/processing-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/processing-foundation
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1142,7 +1142,7 @@ organizations:
   name: Project Mesa
   repo: projectmesa/mesa
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/project-mesa
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/project-mesa
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1150,7 +1150,7 @@ organizations:
   name: QC-Devs
   repo: qc-devs/qc-devs.github.io
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/qc-devs
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/qc-devs
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1158,7 +1158,7 @@ organizations:
   name: QEMU
   repo: qemu/qemu
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/qemu
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/qemu
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1166,7 +1166,7 @@ organizations:
   name: Qubes OS
   repo: QubesOS/qubes-core-agent-linux
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/qubes-os
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/qubes-os
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1174,7 +1174,7 @@ organizations:
   name: R project for statistical computing
   repo: r-devel/r-svn
   projectCount: 25
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/r-project-for-statistical-computing
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/r-project-for-statistical-computing
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1182,7 +1182,7 @@ organizations:
   name: RTEMS Project
   repo: RTEMS/rtems
   projectCount: 8
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/rtems-project
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/rtems-project
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1190,7 +1190,7 @@ organizations:
   name: Rizin
   repo: rizinorg/rizin
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/rizin
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/rizin
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1198,7 +1198,7 @@ organizations:
   name: SW360
   repo: eclipse/sw360
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/sw360
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/sw360
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1206,7 +1206,7 @@ organizations:
   name: SageMath
   repo: sagemath/sage
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/sagemath
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/sagemath
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1214,7 +1214,7 @@ organizations:
   name: ScummVM
   repo: scummvm/scummvm
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/scummvm
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/scummvm
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1222,7 +1222,7 @@ organizations:
   name: St. Jude Children's Research Hospital
   repo: stjude/proteinpaint
   projectCount: 1
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/st-jude-children-s-research-hospital
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/st-jude-children-s-research-hospital
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1230,7 +1230,7 @@ organizations:
   name: Ste||ar group
   repo: STEllAR-GROUP/hpx
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/ste-ar-group
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/ste-ar-group
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1238,7 +1238,7 @@ organizations:
   name: Stichting SU2
   repo: su2code/SU2
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/stichting-su2
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/stichting-su2
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1246,7 +1246,7 @@ organizations:
   name: Submitty
   repo: submitty/Submitty
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/submitty
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/submitty
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1254,7 +1254,7 @@ organizations:
   name: Sugar Labs
   repo: sugarlabs/sugar
   projectCount: 10
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/sugar-labs
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/sugar-labs
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1262,7 +1262,7 @@ organizations:
   name: Synfig
   repo: synfig/synfig
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/synfig
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/synfig
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1270,7 +1270,7 @@ organizations:
   name: TARDIS RT Collaboration
   repo: tardis-sn/tardis
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/tardis-rt-collaboration
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/tardis-rt-collaboration
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1278,7 +1278,7 @@ organizations:
   name: The FreeBSD Project
   repo: freebsd/freebsd-src
   projectCount: 11
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/the-freebsd-project
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/the-freebsd-project
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1286,7 +1286,7 @@ organizations:
   name: The Honeynet Project
   repo: honeynet/conpot
   projectCount: 8
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/the-honeynet-project
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/the-honeynet-project
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1294,7 +1294,7 @@ organizations:
   name: The JPF team
   repo: javapathfinder/jpf-core
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/the-jpf-team
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/the-jpf-team
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1302,7 +1302,7 @@ organizations:
   name: The Libreswan Project
   repo: libreswan/libreswan
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/the-libreswan-project
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/the-libreswan-project
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1310,7 +1310,7 @@ organizations:
   name: The Mifos Initiative
   repo: openMF/mifos-mobile
   projectCount: 13
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/the-mifos-initiative
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/the-mifos-initiative
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1318,7 +1318,7 @@ organizations:
   name: The NetBSD Foundation
   repo: NetBSD/src
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/the-netbsd-foundation
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/the-netbsd-foundation
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1326,7 +1326,7 @@ organizations:
   name: The OpenROAD Initiative
   repo: The-OpenROAD-Project/OpenROAD
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/the-openroad-initiative
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/the-openroad-initiative
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1334,7 +1334,7 @@ organizations:
   name: The P4 Language Consortium
   repo: p4lang/behavioral-model
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/the-p4-language-consortium
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/the-p4-language-consortium
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1342,7 +1342,7 @@ organizations:
   name: The ns-3 Network Simulator Project
   repo: ns3/ns-3-dev-git
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/the-ns-3-network-simulator-project
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/the-ns-3-network-simulator-project
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1350,7 +1350,7 @@ organizations:
   name: Tiled
   repo: mapeditor/tiled
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/tiled
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/tiled
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1358,7 +1358,7 @@ organizations:
   name: Typelevel
   repo: typelevel/cats
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/typelevel
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/typelevel
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1366,7 +1366,7 @@ organizations:
   name: UC OSPO
   repo: uc-ospo/uc-ospo.github.io
   projectCount: 15
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/uc-ospo
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/uc-ospo
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1374,7 +1374,7 @@ organizations:
   name: Unikraft
   repo: unikraft/unikraft
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/unikraft
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/unikraft
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1382,7 +1382,7 @@ organizations:
   name: United Nations Office of Information Communication Technology
   repo: un-oict/open-source
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/united-nations-office-of-information-communication-technology
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/united-nations-office-of-information-communication-technology
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1390,7 +1390,7 @@ organizations:
   name: Uramaki LAB
   repo: uramaki-lab/uramaki
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/uramaki-lab
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/uramaki-lab
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1398,7 +1398,7 @@ organizations:
   name: Wagtail
   repo: wagtail/wagtail
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/wagtail
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/wagtail
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1406,7 +1406,7 @@ organizations:
   name: cBioPortal for Cancer Genomics
   repo: cBioPortal/cbioportal
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/cbioportal-for-cancer-genomics
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/cbioportal-for-cancer-genomics
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1414,7 +1414,7 @@ organizations:
   name: checkstyle
   repo: checkstyle/checkstyle
   projectCount: 6
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/checkstyle
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/checkstyle
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1422,7 +1422,7 @@ organizations:
   name: dora-rs
   repo: dora-rs/dora
   projectCount: 4
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/dora-rs
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/dora-rs
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1430,7 +1430,7 @@ organizations:
   name: gprMax
   repo: gprMax/gprMax
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/gprmax
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/gprmax
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1438,7 +1438,7 @@ organizations:
   name: libssh
   repo: libssh/libssh-mirror
   projectCount: 1
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/libssh
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/libssh
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1446,7 +1446,7 @@ organizations:
   name: omegaUp
   repo: omegaup/omegaup
   projectCount: 3
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/omegaup
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/omegaup
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1454,7 +1454,7 @@ organizations:
   name: openSUSE Project
   repo: openSUSE/open-build-service
   projectCount: 8
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/opensuse-project
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/opensuse-project
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1462,7 +1462,7 @@ organizations:
   name: preCICE
   repo: precice/precice
   projectCount: 2
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/precice
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/precice
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1470,7 +1470,7 @@ organizations:
   name: stdlib
   repo: stdlib-js/stdlib
   projectCount: 5
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/stdlib
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/stdlib
   mentors: '@maintainers'
   tier: 2
   active: true
@@ -1478,7 +1478,7 @@ organizations:
   name: AFLplusplus
   repo: AFLplusplus/AFLplusplus
   projectCount: 0
-  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/orgs/aflplusplus
+  gsocUrl: https://summerofcode.withgoogle.com/programs/2026/organizations/aflplusplus
   mentors: '@vanhauser-thc'
   tier: 2
   active: true

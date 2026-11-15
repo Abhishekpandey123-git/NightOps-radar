@@ -13,7 +13,8 @@ import sys
 import json
 import time
 import threading
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+import csv, io
 from urllib.parse import urlparse, parse_qs
 
 def load_dotenv(filepath=".env"):
@@ -65,6 +66,7 @@ load_dotenv()
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from backend.ai_gateway import AIGateway
 from backend.scout import GSoCScout
+from backend.tg_scout import TelegramMarketScout
 
 PORT = int(os.getenv("PORT", "8080"))
 HOST = os.getenv("HOST", "0.0.0.0")
@@ -80,19 +82,31 @@ def load_config():
             pass
     return {
         "organizations": [
-            {"id": "sympy", "name": "SymPy", "repo": "sympy/sympy", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/orgs/sympy", "mentors": "@oscarbenjamin, @asmeurer", "tier": 1, "active": True},
-            {"id": "openfoodfacts", "name": "Open Food Facts", "repo": "openfoodfacts/openfoodfacts-server", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/orgs/open-food-facts", "mentors": "@teolemon, @alexgarel", "tier": 1, "active": True},
-            {"id": "apache", "name": "Apache Software Foundation", "repo": "apache/iggy", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/orgs/apache-software-foundation", "mentors": "@justinmclean", "tier": 1, "active": True},
-            {"id": "blender", "name": "Blender Foundation", "repo": "blender/blender", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/orgs/blender", "mentors": "@sergey, @brecht", "tier": 1, "active": True},
-            {"id": "django", "name": "Django Software Foundation", "repo": "django/django", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/orgs/django", "mentors": "@carltongibson, @charettes", "tier": 1, "active": True},
-            {"id": "videolan", "name": "VideoLAN (VLC)", "repo": "videolan/vlc", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/orgs/videolan", "mentors": "@j-b, @robUx4", "tier": 2, "active": True},
-            {"id": "cncf", "name": "Cloud Native Computing Foundation", "repo": "kubernetes/kubernetes", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/orgs/cloud-native-computing-foundation", "mentors": "@dims, @liggitt", "tier": 1, "active": True}
+            {"id": "sympy", "name": "SymPy", "repo": "sympy/sympy", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/organizations/sympy", "mentors": "@oscarbenjamin, @asmeurer", "tier": 1, "active": True},
+            {"id": "openfoodfacts", "name": "Open Food Facts", "repo": "openfoodfacts/openfoodfacts-server", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/organizations/open-food-facts", "mentors": "@teolemon, @alexgarel", "tier": 1, "active": True},
+            {"id": "apache", "name": "Apache Software Foundation", "repo": "apache/iggy", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/organizations/apache-software-foundation", "mentors": "@justinmclean", "tier": 1, "active": True},
+            {"id": "blender", "name": "Blender Foundation", "repo": "blender/blender", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/organizations/blender", "mentors": "@sergey, @brecht", "tier": 1, "active": True},
+            {"id": "django", "name": "Django Software Foundation", "repo": "django/django", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/organizations/django", "mentors": "@carltongibson, @charettes", "tier": 1, "active": True},
+            {"id": "videolan", "name": "VideoLAN (VLC)", "repo": "videolan/vlc", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/organizations/videolan", "mentors": "@j-b, @robUx4", "tier": 2, "active": True},
+            {"id": "cncf", "name": "Cloud Native Computing Foundation", "repo": "kubernetes/kubernetes", "gsocUrl": "https://summerofcode.withgoogle.com/programs/2026/organizations/cloud-native-computing-foundation", "mentors": "@dims, @liggitt", "tier": 1, "active": True}
         ]
     }
 
 CONFIG = load_config()
 AI = AIGateway()
 SCOUT = GSoCScout(config=CONFIG, ai_gateway=AI)
+TG_SCOUT = TelegramMarketScout("telegram_config.yaml")
+TG_TOKEN_KEYS = ["TG_API_ID", "TG_API_HASH", "TG_SESSION", "GEMINI_API_KEY", "GROQ_API_KEY", "OPENROUTER_API_KEY", "HF_TOKEN", "OPENAI_API_KEY", "OLLAMA_URL"]
+
+def tg_background_scheduler():
+    time.sleep(3)
+    while True:
+        try:
+            if not TG_SCOUT.paused:
+                TG_SCOUT.poll_all()
+        except Exception as e:
+            print(f"[TG-Daemon] Poller warning: {e}")
+        time.sleep(max(15, TG_SCOUT.poll_interval))
 
 # Continuous Strategy 2 Tiered Polling Worker
 def background_scheduler():
@@ -181,12 +195,51 @@ class RadarRequestHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"status": "ok", "issue_id": issue_id, "pinned": res}).encode("utf-8"))
             return
 
+        elif path == "/api/gsoc/poll/settings":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "status": "ok",
+                "paused": SCOUT.paused,
+                "tier1_interval": SCOUT.tier1_interval,
+                "tier2_interval": SCOUT.tier2_interval
+            }).encode("utf-8"))
+            return
+
+        elif path == "/api/gsoc/poll/target":
+            repo = query.get("repo", [""])[0]
+            org_id = query.get("org_id", [""])[0] or None
+            if not repo or "/" not in repo:
+                self.send_response(400)
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": "Missing or invalid repo"}).encode("utf-8"))
+                return
+            found = SCOUT.poll_single_target(repo, org_id=org_id)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"status": "ok", "repo": repo, "count": len(found)}).encode("utf-8"))
+            return
+
         elif path == "/api/gsoc/poll":
-            SCOUT.poll_tiered_cycle()
+            threading.Thread(target=SCOUT.poll_tiered_cycle, daemon=True).start()
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             self.wfile.write(json.dumps({"status": "poll_triggered", "count": len(SCOUT.issues_db)}).encode("utf-8"))
+            return
+
+        elif path == "/api/gsoc/usage":
+            refresh_gh = query.get("refresh", ["false"])[0].lower() in ["true", "1"]
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "status": "ok",
+                "github": SCOUT.get_rate_limit_status(refresh=refresh_gh),
+                "ai": AI.get_usage_report()
+            }).encode("utf-8"))
             return
 
         elif path == "/api/gsoc/tokens":
@@ -229,6 +282,86 @@ class RadarRequestHandler(SimpleHTTPRequestHandler):
         elif path == "/favicon.ico":
             self.send_response(204)
             self.end_headers()
+            return
+
+        elif path in ["/telegram", "/telegram.html"]:
+            self.path = "/telegram.html"
+            return super().do_GET()
+
+        elif path == "/api/tg/health":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "status": "ok",
+                "sources": len(TG_SCOUT.get_sources()),
+                "listings": len(TG_SCOUT.listings_db),
+                "telethon_configured": bool(os.environ.get("TG_API_ID") and os.environ.get("TG_API_HASH") and os.environ.get("TG_SESSION")),
+                "ai_available": TG_SCOUT.ai_gateway.is_available(),
+                "paused": TG_SCOUT.paused,
+                "poll_interval": TG_SCOUT.poll_interval,
+                "last_poll": TG_SCOUT.last_poll_iso,
+                "stats": TG_SCOUT.last_poll_stats
+            }).encode("utf-8"))
+            return
+
+        elif path == "/api/tg/listings":
+            items = sorted(TG_SCOUT.listings_db.values(), key=lambda x: x.get("releasedAt", ""), reverse=True)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "count": len(items),
+                "last_poll": TG_SCOUT.last_poll_iso,
+                "sources": TG_SCOUT.get_sources(),
+                "listings": items
+            }, ensure_ascii=False).encode("utf-8"))
+            return
+
+        elif path == "/api/tg/sources":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"sources": TG_SCOUT.get_sources()}).encode("utf-8"))
+            return
+
+        elif path == "/api/tg/tokens":
+            masked = {k: mask_token(os.environ.get(k, "")) for k in TG_TOKEN_KEYS}
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "tokens": masked,
+                "telethon_ready": bool(os.environ.get("TG_API_ID") and os.environ.get("TG_API_HASH") and os.environ.get("TG_SESSION"))
+            }).encode("utf-8"))
+            return
+
+        elif path == "/api/tg/export.json":
+            items = sorted(TG_SCOUT.listings_db.values(), key=lambda x: x.get("releasedAt", ""), reverse=True)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Disposition", "attachment; filename=telegram_market_intel.json")
+            self.end_headers()
+            self.wfile.write(json.dumps(items, indent=2, ensure_ascii=False).encode("utf-8"))
+            return
+
+        elif path == "/api/tg/export.csv":
+            items = sorted(TG_SCOUT.listings_db.values(), key=lambda x: x.get("releasedAt", ""), reverse=True)
+            buf = io.StringIO()
+            w = csv.writer(buf)
+            w.writerow(["Timestamp", "Intent", "Product Name", "Category", "Price", "Client Handle", "Payment Methods", "Source", "Source Type", "URL", "Summary"])
+            for it in items:
+                w.writerow([
+                    it.get("releasedAt", ""), it.get("intent", ""), it.get("productName", ""),
+                    it.get("category", ""), it.get("price", ""), it.get("clientHandle", ""),
+                    ", ".join(it.get("paymentMethods") or []), it.get("sourceName", ""),
+                    it.get("sourceType", ""), it.get("url", ""), it.get("summary", "").replace("\n", " ")
+                ])
+            self.send_response(200)
+            self.send_header("Content-Type", "text/csv; charset=utf-8")
+            self.send_header("Content-Disposition", "attachment; filename=telegram_market_intel.csv")
+            self.end_headers()
+            self.wfile.write(buf.getvalue().encode("utf-8"))
             return
 
         elif path in ["/", "/radar"]:
@@ -279,6 +412,9 @@ class RadarRequestHandler(SimpleHTTPRequestHandler):
 
             if updates:
                 save_env_vars(updates)
+                AI._cooldown_until = 0.0
+                AI._provider_cooldowns.clear()
+                SCOUT.get_rate_limit_status(refresh=True)
 
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
@@ -294,7 +430,106 @@ class RadarRequestHandler(SimpleHTTPRequestHandler):
             }).encode("utf-8"))
             return
 
-        if parsed.path in ["/api/gsoc/poll", "/api/gsoc/issue/deep_fetch", "/api/gsoc/issue/pin"]:
+        if parsed.path == "/api/gsoc/poll/settings":
+            length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
+            try:
+                data = json.loads(body)
+            except Exception:
+                data = {}
+            if "paused" in data:
+                SCOUT.paused = bool(data["paused"])
+            if "tier1_interval" in data:
+                SCOUT.tier1_interval = max(10, int(data["tier1_interval"]))
+            if "tier2_interval" in data:
+                SCOUT.tier2_interval = max(10, int(data["tier2_interval"]))
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "status": "ok",
+                "paused": SCOUT.paused,
+                "tier1_interval": SCOUT.tier1_interval,
+                "tier2_interval": SCOUT.tier2_interval
+            }).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/gsoc/poll/custom":
+            length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
+            try:
+                data = json.loads(body)
+            except Exception:
+                data = {}
+            target_repo = data.get("target_repo", "").strip()
+            tier_scope = data.get("tier_scope", "all")
+            days_window = int(data.get("days_window", 30))
+            since_iso = data.get("since_iso") or None
+            until_iso = data.get("until_iso") or None
+
+            threading.Thread(
+                target=SCOUT.poll_custom_range,
+                kwargs={
+                    "target_repo": target_repo,
+                    "tier_scope": tier_scope,
+                    "days_window": days_window,
+                    "since_iso": since_iso,
+                    "until_iso": until_iso
+                },
+                daemon=True
+            ).start()
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"status": "custom_poll_started"}).encode("utf-8"))
+            return
+
+        if parsed.path.startswith("/api/tg/"):
+            length = int(self.headers.get("Content-Length", 0) or 0)
+            body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
+            try:
+                data = json.loads(body)
+            except Exception:
+                data = {}
+
+            if parsed.path == "/api/tg/poll":
+                res = TG_SCOUT.poll_all()
+            elif parsed.path == "/api/tg/poll/target":
+                sid = data.get("sourceId")
+                src = next((s for s in TG_SCOUT.get_sources() if s.get("id") == sid), None)
+                if not src:
+                    self.send_response(404); self.end_headers()
+                    self.wfile.write(json.dumps({"error": "Source not found"}).encode("utf-8"))
+                    return
+                items = TG_SCOUT.poll_source(src)
+                TG_SCOUT._save_cache()
+                res = {"status": "ok", "sourceId": sid, "fetched": len(items)}
+            elif parsed.path == "/api/tg/poll/settings":
+                if "paused" in data:
+                    TG_SCOUT.paused = bool(data["paused"])
+                if "interval" in data:
+                    TG_SCOUT.poll_interval = max(15, int(data["interval"]))
+                res = {"paused": TG_SCOUT.paused, "interval": TG_SCOUT.poll_interval}
+            elif parsed.path == "/api/tg/sources":
+                res = TG_SCOUT.add_source(data)
+            elif parsed.path == "/api/tg/sources/remove":
+                res = {"removed": TG_SCOUT.remove_source(data.get("sourceId", ""))}
+            elif parsed.path == "/api/tg/tokens":
+                updates = {k: str(data[k]).strip() for k in TG_TOKEN_KEYS if k in data and str(data[k]).strip()}
+                if updates:
+                    save_env_vars(updates)
+                res = {"status": "saved"}
+            else:
+                self.send_response(404); self.end_headers(); return
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(res).encode("utf-8"))
+            return
+
+        if parsed.path in ["/api/gsoc/poll", "/api/gsoc/poll/target", "/api/gsoc/issue/deep_fetch", "/api/gsoc/issue/pin"]:
             return self.do_GET()
         self.send_response(404)
         self.end_headers()
@@ -308,9 +543,11 @@ def main():
 
     t = threading.Thread(target=background_scheduler, daemon=True)
     t.start()
+    t_tg = threading.Thread(target=tg_background_scheduler, daemon=True)
+    t_tg.start()
 
-    HTTPServer.allow_reuse_address = True
-    server = HTTPServer((HOST, PORT), RadarRequestHandler)
+    ThreadingHTTPServer.allow_reuse_address = True
+    server = ThreadingHTTPServer((HOST, PORT), RadarRequestHandler)
     print(f"[Server] 🚀 Serving NightOps Radar on http://localhost:{PORT}")
     try:
         server.serve_forever()

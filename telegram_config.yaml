@@ -1,0 +1,30 @@
+polling:
+  interval_seconds: 120
+
+sources:
+  - id: producthunt_rss
+    name: Product Hunt (New Launches)
+    type: rss
+    url: https://www.producthunt.com/feed
+    active: true
+
+  - id: telegram_official
+    name: Telegram News (Public Channel Test)
+    type: tg_channel
+    handle: telegram
+    active: true
+
+  # Add your digital product channels (zero-auth via t.me/s/<handle>)
+  # or Telegram groups (requires TG_API_ID, TG_API_HASH, TG_SESSION in .env):
+  #
+  # - id: my_digital_market
+  #   name: Digital Products Market
+  #   type: tg_channel
+  #   handle: your_channel_handle
+  #   active: true
+  #
+  # - id: my_wtb_group
+  #   name: SaaS & Scripts WTB/WTS Group
+  #   type: tg_group
+  #   handle: your_group_handle_or_id
+  #   active: true
