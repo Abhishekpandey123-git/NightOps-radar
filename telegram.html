@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NightOps // Telegram Digital Products Radar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            night: { 950: '#050810', 900: '#0a0f1c', 850: '#0f172a', 800: '#162036', 700: '#1e293b' },
+            neon: { green: '#00ff9d', cyan: '#00e5ff', purple: '#a855f7', amber: '#f59e0b', rose: '#fb7185' }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { background: #050810; color: #e2e8f0; font-family: Inter, system-ui, sans-serif; }
+    .radar-grid { background-image: radial-gradient(rgba(0, 229, 255, 0.06) 1px, transparent 1px); background-size: 24px 24px; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0f1c; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="border-b border-night-700 bg-night-900/95 backdrop-blur sticky top-0 z-30 px-4 py-3">
+    <div class="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-emerald-950/80 border border-emerald-500/40 flex items-center justify-center text-lg shadow-[0_0_12px_rgba(0,255,157,0.2)]">📡</div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-mono font-bold text-white text-base tracking-tight">NIGHTOPS // <span class="text-neon-green">TELEGRAM MARKET RADAR</span></h1>
+            <span id="telethon-badge" class="px-2 py-0.5 text-[10px] font-mono rounded bg-night-800 text-slate-400 border border-night-700">TG Web + RSS</span>
+          </div>
+          <p class="text-[11px] font-mono text-slate-400">Digital Products • Buyers (WTB) • Sellers (WTS) • New Launches</p>
+        </div>
+      </div>
+
+      <!-- KPI Pills -->
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+        <div class="px-2.5 py-1 rounded bg-night-950 border border-night-700">Sources: <span id="stat-sources" class="text-white font-bold">0</span></div>
+        <div class="px-2.5 py-1 rounded bg-night-950 border border-night-700">Intel: <span id="stat-total" class="text-neon-cyan font-bold">0</span></div>
+        <div class="px-2.5 py-1 rounded bg-emerald-950/50 border border-emerald-500/30">Buyers: <span id="stat-buy" class="text-neon-green font-bold">0</span></div>
+        <div class="px-2.5 py-1 rounded bg-cyan-950/50 border border-cyan-500/30">Sellers: <span id="stat-sell" class="text-neon-cyan font-bold">0</span></div>
+        <div class="px-2.5 py-1 rounded bg-amber-950/50 border border-amber-500/30">New: <span id="stat-new" class="text-amber-400 font-bold">0</span></div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+        <a href="/" class="px-2.5 py-1.5 rounded-lg bg-night-800 border border-emerald-500/40 text-neon-green hover:bg-emerald-950/40 transition">👻 GSoC Radar</a>
+        <button id="btn-poll-now" onclick="pollAllNow()" class="px-3 py-1.5 rounded-lg bg-neon-green text-night-950 font-bold hover:brightness-110 transition">⚡ Poll Now</button>
+        <button id="btn-pause-toggle" onclick="togglePause()" class="px-2.5 py-1.5 rounded-lg bg-night-800 border border-night-700 text-slate-200 hover:border-amber-500/50 transition">⏸️ Pause</button>
+        <button onclick="openModal('modal-add-source')" class="px-2.5 py-1.5 rounded-lg bg-night-800 border border-cyan-500/40 text-neon-cyan hover:bg-cyan-950/40 transition">+ Add Source</button>
+        <button onclick="openTokensModal()" class="px-2.5 py-1.5 rounded-lg bg-night-800 border border-amber-500/40 text-amber-400 hover:bg-amber-950/40 transition">🔑 Tokens</button>
+        <a href="/api/tg/export.csv" class="px-2.5 py-1.5 rounded-lg bg-night-800 border border-night-700 text-slate-200 hover:border-neon-green transition">⬇ CSV</a>
+        <a href="/api/tg/export.json" class="px-2.5 py-1.5 rounded-lg bg-night-800 border border-night-700 text-slate-200 hover:border-neon-cyan transition">⬇ JSON</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-[1600px] w-full mx-auto p-4 space-y-4">
+
+    <!-- Filters & Legend -->
+    <section class="bg-night-900 border border-night-700 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+        <button onclick="setFilter('ALL')" data-filter="ALL" class="filter-btn px-2.5 py-1 rounded-lg bg-night-800 text-white border border-neon-cyan">All</button>
+        <button onclick="setFilter('BUY')" data-filter="BUY" class="filter-btn px-2.5 py-1 rounded-lg bg-night-950 text-neon-green border border-night-700">🟢 Buyers (WTB)</button>
+        <button onclick="setFilter('SELL')" data-filter="SELL" class="filter-btn px-2.5 py-1 rounded-lg bg-night-950 text-neon-cyan border border-night-700">🔵 Sellers (WTS)</button>
+        <button onclick="setFilter('NEW_PRODUCT')" data-filter="NEW_PRODUCT" class="filter-btn px-2.5 py-1 rounded-lg bg-night-950 text-amber-400 border border-night-700">🟠 New Products</button>
+        <button onclick="setFilter('HAS_PRICE')" data-filter="HAS_PRICE" class="filter-btn px-2.5 py-1 rounded-lg bg-night-950 text-slate-300 border border-night-700">💰 Has Price</button>
+        <input id="search-input" oninput="renderAll()" type="text" placeholder="Search product, @handle, category, price..." class="ml-1 px-3 py-1 rounded-lg bg-night-950 border border-night-700 text-xs text-white focus:outline-none focus:border-neon-cyan w-64" />
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4 text-[11px] font-mono">
+        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-neon-green shadow-[0_0_8px_#00ff9d]"></span><span class="text-slate-300">Buyer (WTB)</span></div>
+        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-neon-cyan"></span><span class="text-slate-300">Seller (WTS)</span></div>
+        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-500 shadow-[0_0_8px_#f59e0b]"></span><span class="text-slate-300">New Product</span></div>
+        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-neon-purple"></span><span class="text-slate-300">Escrow / Other</span></div>
+        <div class="flex items-center gap-1 bg-night-950 p-0.5 rounded-lg border border-night-700">
+          <button onclick="zoomTimeline(0.7)" class="px-2 py-0.5 hover:bg-night-800 rounded">➖</button>
+          <span id="zoom-label" class="px-1.5 text-neon-cyan font-bold">1x</span>
+          <button onclick="zoomTimeline(1.4)" class="px-2 py-0.5 hover:bg-night-800 rounded">➕</button>
+          <button onclick="jumpToLive()" class="px-2 py-0.5 hover:bg-night-800 rounded text-neon-green">Live ⏩</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Temporal Radar Matrix -->
+    <section class="bg-night-900 border border-night-700 rounded-xl overflow-hidden flex flex-col">
+      <div class="flex border-b border-night-700 bg-night-950/70 text-[11px] font-mono text-slate-400">
+        <div class="w-72 shrink-0 px-3 py-2 border-r border-night-700 font-bold text-neon-green flex items-center justify-between">
+          <span>MONITORED SOURCES</span>
+          <span class="text-[10px] text-slate-500">Click ⚡ to poll</span>
+        </div>
+        <div class="flex-1 px-3 py-2 flex items-center justify-between">
+          <span>TEMPORAL TIMELINE (Drag to pan • Hover for intel • Click for full dossier)</span>
+          <span id="window-range-label" class="text-slate-300"></span>
+        </div>
+      </div>
+
+      <div class="flex max-h-[420px] overflow-y-auto">
+        <!-- Y-Axis Labels -->
+        <div id="y-axis-list" class="w-72 shrink-0 border-r border-night-700 bg-night-900/90 divide-y divide-night-800"></div>
+
+        <!-- SVG Plot -->
+        <div id="radar-scroll" class="flex-1 overflow-x-auto radar-grid relative cursor-grab active:cursor-grabbing select-none">
+          <svg id="radar-svg" class="block min-w-full"></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Collected Intelligence Table -->
+    <section class="bg-night-900 border border-night-700 rounded-xl overflow-hidden">
+      <div class="px-4 py-2.5 border-b border-night-700 bg-night-950/70 flex items-center justify-between">
+        <h2 class="font-mono text-xs font-bold text-white">COLLECTED MARKET INTELLIGENCE</h2>
+        <span id="table-count" class="font-mono text-[11px] text-slate-400">0 records</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-night-950/90 text-slate-400 font-mono text-[11px] border-b border-night-700">
+            <tr>
+              <th class="p-3">Time</th>
+              <th class="p-3">Intent</th>
+              <th class="p-3">Product / Listing</th>
+              <th class="p-3">Category</th>
+              <th class="p-3">Price</th>
+              <th class="p-3">Client / Handle</th>
+              <th class="p-3">Payments</th>
+              <th class="p-3">Source</th>
+              <th class="p-3 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="intel-tbody" class="divide-y divide-night-800"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Hover Tooltip -->
+  <div id="radar-tooltip" class="fixed z-50 pointer-events-none opacity-0 transition-opacity duration-100 w-80 bg-night-900/95 border border-night-700 rounded-xl p-3 shadow-2xl text-xs">
+    <div class="flex items-center justify-between gap-2 mb-1.5">
+      <span id="tt-intent" class="px-2 py-0.5 rounded font-mono text-[10px] font-bold">BUY</span>
+      <span id="tt-time" class="font-mono text-[10px] text-slate-400"></span>
+    </div>
+    <h4 id="tt-title" class="font-bold text-white text-sm mb-2 line-clamp-2"></h4>
+    <div class="space-y-1 text-[11px] font-mono">
+      <div class="flex justify-between"><span class="text-slate-400">Price:</span><span id="tt-price" class="text-neon-green font-bold"></span></div>
+      <div class="flex justify-between"><span class="text-slate-400">Client:</span><span id="tt-client" class="text-neon-cyan"></span></div>
+      <div class="flex justify-between"><span class="text-slate-400">Category:</span><span id="tt-cat" class="text-slate-200"></span></div>
+      <div class="flex justify-between"><span class="text-slate-400">Source:</span><span id="tt-src" class="text-slate-300 truncate max-w-[170px]"></span></div>
+    </div>
+    <p id="tt-summary" class="mt-2 p-2 rounded bg-night-950 border border-night-800 text-[11px] text-slate-300 line-clamp-3"></p>
+  </div>
+
+  <!-- Full Dossier Modal -->
+  <div id="modal-dossier" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-night-900 border border-night-700 rounded-2xl max-w-2xl w-full p-5 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <span id="dos-intent" class="px-2 py-0.5 rounded font-mono text-[11px] font-bold"></span>
+          <h3 id="dos-title" class="text-lg font-bold text-white mt-1.5"></h3>
+        </div>
+        <button onclick="closeModal('modal-dossier')" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs font-mono">
+        <div class="p-2.5 rounded-lg bg-night-950 border border-night-800"><div class="text-slate-500 text-[10px]">PRICE</div><div id="dos-price" class="text-neon-green font-bold mt-0.5"></div></div>
+        <div class="p-2.5 rounded-lg bg-night-950 border border-night-800"><div class="text-slate-500 text-[10px]">CLIENT / HANDLE</div><div id="dos-client" class="text-neon-cyan font-bold mt-0.5"></div></div>
+        <div class="p-2.5 rounded-lg bg-night-950 border border-night-800"><div class="text-slate-500 text-[10px]">CATEGORY</div><div id="dos-cat" class="text-white mt-0.5"></div></div>
+        <div class="p-2.5 rounded-lg bg-night-950 border border-night-800"><div class="text-slate-500 text-[10px]">PAYMENTS</div><div id="dos-pay" class="text-amber-300 mt-0.5"></div></div>
+        <div class="p-2.5 rounded-lg bg-night-950 border border-night-800"><div class="text-slate-500 text-[10px]">SOURCE</div><div id="dos-src" class="text-slate-200 mt-0.5"></div></div>
+        <div class="p-2.5 rounded-lg bg-night-950 border border-night-800"><div class="text-slate-500 text-[10px]">POSTED</div><div id="dos-time" class="text-slate-300 mt-0.5"></div></div>
+      </div>
+      <div>
+        <div class="text-[11px] font-mono text-slate-400 mb-1">COLLECTED MESSAGE TEXT</div>
+        <pre id="dos-raw" class="p-3 rounded-xl bg-night-950 border border-night-800 text-xs text-slate-200 whitespace-pre-wrap font-sans leading-relaxed max-h-60 overflow-y-auto"></pre>
+      </div>
+      <div id="dos-links" class="flex flex-wrap gap-2 text-xs font-mono"></div>
+      <div class="flex justify-end gap-2 pt-2 border-t border-night-800">
+        <a id="dos-open-link" href="#" target="_blank" class="px-4 py-2 rounded-lg bg-neon-green text-night-950 font-mono font-bold text-xs">Open Original Post ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Source Modal -->
+  <div id="modal-add-source" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-night-900 border border-night-700 rounded-2xl max-w-md w-full p-5 space-y-3">
+      <div class="flex items-center justify-between">
+        <h3 class="font-mono font-bold text-white text-sm">+ Add Telegram Channel / Group / RSS</h3>
+        <button onclick="closeModal('modal-add-source')" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+      <div class="space-y-2.5 text-xs font-mono">
+        <div>
+          <label class="text-slate-400 block mb-1">Source Type</label>
+          <select id="src-type" class="w-full p-2 rounded-lg bg-night-950 border border-night-700 text-white">
+            <option value="tg_channel">Public Telegram Channel (t.me/s/ - Zero Auth)</option>
+            <option value="tg_group">Telegram Group / Private Channel (Telethon)</option>
+            <option value="rss">RSS / Atom Web Marketplace Feed</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-slate-400 block mb-1">Display Name</label>
+          <input id="src-name" type="text" placeholder="e.g. Digital SaaS Market" class="w-full p-2 rounded-lg bg-night-950 border border-night-700 text-white" />
+        </div>
+        <div>
+          <label class="text-slate-400 block mb-1">Channel/Group @handle (or RSS URL)</label>
+          <input id="src-handle" type="text" placeholder="e.g. mychannel (without @) or https://..." class="w-full p-2 rounded-lg bg-night-950 border border-night-700 text-white" />
+        </div>
+        <button onclick="submitNewSource()" class="w-full py-2 rounded-lg bg-neon-cyan text-night-950 font-bold hover:brightness-110 transition">Save & Poll Source</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tokens Modal -->
+  <div id="modal-tokens" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-night-900 border border-night-700 rounded-2xl max-w-lg w-full p-5 space-y-3">
+      <div class="flex items-center justify-between">
+        <h3 class="font-mono font-bold text-white text-sm">🔑 Telegram Group & AI Fallback Tokens (.env)</h3>
+        <button onclick="closeModal('modal-tokens')" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-mono">
+        <div><label class="text-slate-400">TG_API_ID (for Groups)</label><input id="tok-TG_API_ID" type="text" placeholder="1234567" class="w-full mt-1 p-2 rounded bg-night-950 border border-night-700 text-white" /></div>
+        <div><label class="text-slate-400">TG_API_HASH (for Groups)</label><input id="tok-TG_API_HASH" type="password" placeholder="abcdef..." class="w-full mt-1 p-2 rounded bg-night-950 border border-night-700 text-white" /></div>
+        <div class="sm:col-span-2"><label class="text-slate-400">TG_SESSION (Telethon StringSession)</label><input id="tok-TG_SESSION" type="password" placeholder="1BVtsOH..." class="w-full mt-1 p-2 rounded bg-night-950 border border-night-700 text-white" /></div>
+        <div><label class="text-slate-400">GEMINI_API_KEY</label><input id="tok-GEMINI_API_KEY" type="password" placeholder="AIza..." class="w-full mt-1 p-2 rounded bg-night-950 border border-night-700 text-white" /></div>
+        <div><label class="text-slate-400">GROQ_API_KEY</label><input id="tok-GROQ_API_KEY" type="password" placeholder="gsk_..." class="w-full mt-1 p-2 rounded bg-night-950 border border-night-700 text-white" /></div>
+        <div><label class="text-slate-400">OPENROUTER_API_KEY</label><input id="tok-OPENROUTER_API_KEY" type="password" placeholder="sk-or-..." class="w-full mt-1 p-2 rounded bg-night-950 border border-night-700 text-white" /></div>
+        <div><label class="text-slate-400">HF_TOKEN</label><input id="tok-HF_TOKEN" type="password" placeholder="hf_..." class="w-full mt-1 p-2 rounded bg-night-950 border border-night-700 text-white" /></div>
+      </div>
+      <button onclick="saveTokens()" class="w-full py-2 rounded-lg bg-neon-green text-night-950 font-mono font-bold text-xs">Save Tokens to .env</button>
+    </div>
+  </div>
+
+  <script>
+    const STATE = {
+      sources: [],
+      listings: [],
+      filter: 'ALL',
+      zoom: 1,
+      windowDays: 7,
+      endTime: Date.now(),
+      paused: false
+    };
+
+    const INTENT_COLORS = {
+      BUY: '#00ff9d',
+      SELL: '#00e5ff',
+      NEW_PRODUCT: '#f59e0b',
+      UNKNOWN: '#a855f7'
+    };
+
+    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+    function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+    function formatTS(iso) {
+      const d = new Date(iso);
+      if (isNaN(d)) return iso || '';
+      const p = n => String(n).padStart(2, '0');
+      return `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`;
+    }
+
+    function intentBadge(intent) {
+      if (intent === 'BUY') return { text: '🟢 BUY (WTB)', cls: 'bg-emerald-950 text-neon-green border border-emerald-500/40' };
+      if (intent === 'SELL') return { text: '🔵 SELL (WTS)', cls: 'bg-cyan-950 text-neon-cyan border border-cyan-500/40' };
+      if (intent === 'NEW_PRODUCT') return { text: '🟠 NEW PRODUCT', cls: 'bg-amber-950 text-amber-400 border border-amber-500/40' };
+      return { text: '🟣 INTEL', cls: 'bg-purple-950 text-neon-purple border border-purple-500/40' };
+    }
+
+    async function fetchData() {
+      try {
+        const [resL, resH] = await Promise.all([
+          fetch('/api/tg/listings'),
+          fetch('/api/tg/health')
+        ]);
+        const data = await resL.json();
+        const health = await resH.json();
+        STATE.sources = data.sources || [];
+        STATE.listings = data.listings || [];
+        STATE.paused = Boolean(health.paused);
+        document.getElementById('btn-pause-toggle').textContent = STATE.paused ? '▶️ Resume' : '⏸️ Pause';
+        const tb = document.getElementById('telethon-badge');
+        if (health.telethon_configured) {
+          tb.textContent = 'TG Groups + Channels + RSS';
+          tb.className = 'px-2 py-0.5 text-[10px] font-mono rounded bg-emerald-950 text-neon-green border border-emerald-500/40';
+        }
+        renderAll();
+      } catch (e) {
+        console.warn('Sync error:', e);
+      }
+    }
+
+    function getFiltered() {
+      const q = (document.getElementById('search-input').value || '').toLowerCase().trim();
+      return STATE.listings.filter(it => {
+        if (STATE.filter === 'BUY' && it.intent !== 'BUY') return false;
+        if (STATE.filter === 'SELL' && it.intent !== 'SELL') return false;
+        if (STATE.filter === 'NEW_PRODUCT' && it.intent !== 'NEW_PRODUCT') return false;
+        if (STATE.filter === 'HAS_PRICE' && !it.price) return false;
+        if (q) {
+          const hay = `${it.title} ${it.category} ${it.price || ''} ${it.clientHandle || ''} ${it.sourceName} ${it.rawText}`.toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+
+    function setFilter(f) {
+      STATE.filter = f;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('border-neon-cyan', b.dataset.filter === f);
+        b.classList.toggle('border-night-700', b.dataset.filter !== f);
+      });
+      renderAll();
+    }
+
+    function renderAll() {
+      const filtered = getFiltered();
+      document.getElementById('stat-sources').textContent = STATE.sources.length;
+      document.getElementById('stat-total').textContent = STATE.listings.length;
+      document.getElementById('stat-buy').textContent = STATE.listings.filter(i => i.intent === 'BUY').length;
+      document.getElementById('stat-sell').textContent = STATE.listings.filter(i => i.intent === 'SELL').length;
+      document.getElementById('stat-new').textContent = STATE.listings.filter(i => i.intent === 'NEW_PRODUCT').length;
+
+      renderRadar(filtered);
+      renderTable(filtered);
+    }
+
+    function renderRadar(filtered) {
+      const yList = document.getElementById('y-axis-list');
+      const svg = document.getElementById('radar-svg');
+      const rowH = 44;
+      const topPad = 28;
+      const sources = STATE.sources;
+      const height = Math.max(180, topPad + sources.length * rowH + 16);
+      const plotW = Math.max(900, Math.round(900 * STATE.zoom));
+
+      svg.setAttribute('width', plotW);
+      svg.setAttribute('height', height);
+      svg.innerHTML = '';
+      yList.innerHTML = '';
+
+      const spanMs = STATE.windowDays * 86400 * 1000;
+      const startMs = STATE.endTime - spanMs;
+      document.getElementById('window-range-label').textContent = `${formatTS(startMs)} → ${formatTS(STATE.endTime)}`;
+
+      // X-Axis ticks
+      const ticks = 6;
+      for (let i = 0; i <= ticks; i++) {
+        const x = (i / ticks) * plotW;
+        const t = startMs + (i / ticks) * spanMs;
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', x); line.setAttribute('x2', x);
+        line.setAttribute('y1', topPad); line.setAttribute('y2', height);
+        line.setAttribute('stroke', '#1e293b'); line.setAttribute('stroke-dasharray', '3,3');
+        svg.appendChild(line);
+
+        const lbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        lbl.setAttribute('x', Math.min(plotW - 75, Math.max(4, x - 30)));
+        lbl.setAttribute('y', 18);
+        lbl.setAttribute('fill', '#64748b');
+        lbl.setAttribute('font-size', '10');
+        lbl.setAttribute('font-family', 'monospace');
+        lbl.textContent = formatTS(t).slice(0, 16);
+        svg.appendChild(lbl);
+      }
+
+      // Y-Axis Rows
+      sources.forEach((src, idx) => {
+        const count = filtered.filter(i => i.sourceId === src.id).length;
+        const row = document.createElement('div');
+        row.className = 'h-[44px] px-3 flex items-center justify-between gap-2 text-xs hover:bg-night-800/50';
+        row.innerHTML = `
+          <div class="min-w-0">
+            <div class="font-semibold text-white truncate">${idx + 1}. ${src.name}</div>
+            <div class="text-[10px] font-mono text-slate-500 truncate">${src.type} • ${src.handle || 'feed'}</div>
+          </div>
+          <div class="flex items-center gap-1 shrink-0">
+            <span class="px-1.5 py-0.5 rounded bg-night-950 border border-night-700 font-mono text-[10px] text-neon-cyan">${count}</span>
+            <button onclick="pollSingle('${src.id}')" title="Poll Source" class="px-1.5 py-0.5 rounded bg-night-800 hover:bg-neon-green hover:text-night-950 text-[10px]">⚡</button>
+            <button onclick="removeSource('${src.id}')" title="Remove Source" class="px-1.5 py-0.5 rounded bg-night-800 hover:bg-rose-600 text-slate-400 hover:text-white text-[10px]">✕</button>
+          </div>`;
+        yList.appendChild(row);
+
+        const cy = topPad + idx * rowH + rowH / 2;
+        const hline = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        hline.setAttribute('x1', 0); hline.setAttribute('x2', plotW);
+        hline.setAttribute('y1', cy); hline.setAttribute('y2', cy);
+        hline.setAttribute('stroke', '#0f172a');
+        svg.appendChild(hline);
+      });
+
+      // Plot Dots
+      filtered.forEach(item => {
+        const idx = sources.findIndex(s => s.id === item.sourceId);
+        if (idx === -1) return;
+        const ts = new Date(item.releasedAt).getTime();
+        if (isNaN(ts) || ts < startMs || ts > STATE.endTime) return;
+        const cx = ((ts - startMs) / spanMs) * plotW;
+        const cy = topPad + idx * rowH + rowH / 2;
+        const color = INTENT_COLORS[item.intent] || '#a855f7';
+
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('class', 'cursor-pointer');
+        const outer = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        outer.setAttribute('cx', cx); outer.setAttribute('cy', cy); outer.setAttribute('r', '7');
+        outer.setAttribute('fill', color); outer.setAttribute('fill-opacity', '0.25');
+        outer.setAttribute('stroke', color); outer.setAttribute('stroke-width', '1.5');
+        const core = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        core.setAttribute('cx', cx); core.setAttribute('cy', cy); core.setAttribute('r', '3.5');
+        core.setAttribute('fill', color);
+        g.appendChild(outer); g.appendChild(core);
+
+        g.addEventListener('mouseenter', e => showTooltip(item, e));
+        g.addEventListener('mouseleave', hideTooltip);
+        g.addEventListener('click', () => openDossier(item));
+        svg.appendChild(g);
+      });
+    }
+
+    function showTooltip(item, e) {
+      const tt = document.getElementById('radar-tooltip');
+      const b = intentBadge(item.intent);
+      const intentEl = document.getElementById('tt-intent');
+      intentEl.textContent = b.text;
+      intentEl.className = `px-2 py-0.5 rounded font-mono text-[10px] font-bold ${b.cls}`;
+      document.getElementById('tt-time').textContent = formatTS(item.releasedAt);
+      document.getElementById('tt-title').textContent = item.productName || item.title;
+      document.getElementById('tt-price').textContent = item.price || 'Not specified';
+      document.getElementById('tt-client').textContent = item.clientHandle || 'See post';
+      document.getElementById('tt-cat').textContent = item.category || 'Digital Product';
+      document.getElementById('tt-src').textContent = item.sourceName || item.sourceId;
+      document.getElementById('tt-summary').textContent = item.summary || item.rawText || '';
+
+      tt.style.left = `${Math.min(window.innerWidth - 340, e.clientX + 14)}px`;
+      tt.style.top = `${Math.min(window.innerHeight - 240, Math.max(12, e.clientY - 20))}px`;
+      tt.classList.remove('opacity-0'); tt.classList.add('opacity-100');
+    }
+
+    function hideTooltip() {
+      const tt = document.getElementById('radar-tooltip');
+      tt.classList.remove('opacity-100'); tt.classList.add('opacity-0');
+    }
+
+    function openDossier(item) {
+      const b = intentBadge(item.intent);
+      const di = document.getElementById('dos-intent');
+      di.textContent = b.text;
+      di.className = `px-2 py-0.5 rounded font-mono text-[11px] font-bold ${b.cls}`;
+      document.getElementById('dos-title').textContent = item.productName || item.title;
+      document.getElementById('dos-price').textContent = item.price || 'Not specified';
+      document.getElementById('dos-client').textContent = item.clientHandle || 'N/A';
+      document.getElementById('dos-cat').textContent = item.category || 'Digital Product';
+      document.getElementById('dos-pay').textContent = (item.paymentMethods && item.paymentMethods.length) ? item.paymentMethods.join(', ') : 'Not specified';
+      document.getElementById('dos-src').textContent = `${item.sourceName} (${item.sourceType})`;
+      document.getElementById('dos-time').textContent = formatTS(item.releasedAt);
+      document.getElementById('dos-raw').textContent = item.rawText || '';
+      document.getElementById('dos-open-link').href = item.url || '#';
+      const linksBox = document.getElementById('dos-links');
+      linksBox.innerHTML = (item.contactLinks || []).map(l => `<a href="${l}" target="_blank" class="px-2 py-1 rounded bg-night-950 border border-night-700 text-neon-cyan hover:underline truncate max-w-xs">${l}</a>`).join('');
+      openModal('modal-dossier');
+    }
+
+    function renderTable(filtered) {
+      const tbody = document.getElementById('intel-tbody');
+      document.getElementById('table-count').textContent = `${filtered.length} records`;
+      tbody.innerHTML = '';
+      if (!filtered.length) {
+        tbody.innerHTML = `<tr><td colspan="9" class="p-8 text-center text-slate-500 font-mono">No listings collected yet. Add a Telegram channel/group or click ⚡ Poll Now.</td></tr>`;
+        return;
+      }
+      filtered.slice(0, 150).forEach(it => {
+        const b = intentBadge(it.intent);
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-night-800/50 transition';
+        tr.innerHTML = `
+          <td class="p-3 font-mono text-[11px] text-slate-400 whitespace-nowrap">${formatTS(it.releasedAt)}</td>
+          <td class="p-3 whitespace-nowrap"><span class="px-2 py-0.5 rounded font-mono text-[10px] font-bold ${b.cls}">${b.text}</span></td>
+          <td class="p-3 max-w-xs"><div class="font-semibold text-white line-clamp-1">${it.productName}</div><div class="text-[11px] text-slate-400 line-clamp-1">${it.summary || ''}</div></td>
+          <td class="p-3 font-mono text-[11px] text-slate-300">${it.category}</td>
+          <td class="p-3 font-mono text-[11px] text-neon-green font-bold">${it.price || '—'}</td>
+          <td class="p-3 font-mono text-[11px] text-neon-cyan">${it.clientHandle || '—'}</td>
+          <td class="p-3 font-mono text-[10px] text-amber-300">${(it.paymentMethods || []).join(', ') || '—'}</td>
+          <td class="p-3 font-mono text-[11px] text-slate-300">${it.sourceName}</td>
+          <td class="p-3 text-right whitespace-nowrap space-x-1">
+            <button onclick='openDossier(${JSON.stringify(it).replace(/'/g, "&#39;")})' class="px-2 py-1 rounded bg-night-800 border border-night-700 hover:border-neon-cyan text-[11px] font-mono">Dossier</button>
+            <a href="${it.url}" target="_blank" class="px-2 py-1 rounded bg-night-800 border border-night-700 hover:border-neon-green text-[11px] font-mono">Post ↗</a>
+          </td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function zoomTimeline(factor) {
+      STATE.zoom = Math.min(16, Math.max(0.5, Number((STATE.zoom * factor).toFixed(2))));
+      document.getElementById('zoom-label').textContent = `${STATE.zoom}x`;
+      renderAll();
+    }
+
+    function jumpToLive() {
+      STATE.endTime = Date.now();
+      renderAll();
+    }
+
+    async function pollAllNow() {
+      const btn = document.getElementById('btn-poll-now');
+      btn.textContent = '⏳ Polling...';
+      await fetch('/api/tg/poll', { method: 'POST' });
+      btn.textContent = '⚡ Poll Now';
+      fetchData();
+    }
+
+    async function pollSingle(sourceId) {
+      await fetch('/api/tg/poll/target', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sourceId })
+      });
+      fetchData();
+    }
+
+    async function togglePause() {
+      const res = await fetch('/api/tg/poll/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ paused: !STATE.paused })
+      });
+      const d = await res.json();
+      STATE.paused = d.paused;
+      document.getElementById('btn-pause-toggle').textContent = STATE.paused ? '▶️ Resume' : '⏸️ Pause';
+    }
+
+    async function submitNewSource() {
+      const type = document.getElementById('src-type').value;
+      const name = document.getElementById('src-name').value.trim();
+      const rawHandle = document.getElementById('src-handle').value.trim();
+      if (!name || !rawHandle) return;
+      const payload = type === 'rss'
+        ? { type, name, url: rawHandle, active: true }
+        : { type, name, handle: rawHandle.replace(/^@/, ''), active: true };
+      const res = await fetch('/api/tg/sources', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const d = await res.json();
+      closeModal('modal-add-source');
+      if (d.source && d.source.id) await pollSingle(d.source.id);
+      else fetchData();
+    }
+
+    async function removeSource(sourceId) {
+      await fetch('/api/tg/sources/remove', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sourceId })
+      });
+      fetchData();
+    }
+
+    async function openTokensModal() {
+      openModal('modal-tokens');
+    }
+
+    async function saveTokens() {
+      const keys = ['TG_API_ID', 'TG_API_HASH', 'TG_SESSION', 'GEMINI_API_KEY', 'GROQ_API_KEY', 'OPENROUTER_API_KEY', 'HF_TOKEN'];
+      const payload = {};
+      keys.forEach(k => {
+        const v = document.getElementById(`tok-${k}`).value.trim();
+        if (v) payload[k] = v;
+      });
+      await fetch('/api/tg/tokens', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      closeModal('modal-tokens');
+      fetchData();
+    }
+
+    // Drag-to-pan timeline
+    (function initPan() {
+      const el = document.getElementById('radar-scroll');
+      let dragging = false, startX = 0, startEnd = 0;
+      el.addEventListener('mousedown', e => {
+        dragging = true; startX = e.clientX; startEnd = STATE.endTime;
+      });
+      window.addEventListener('mousemove', e => {
+        if (!dragging) return;
+        const dx = e.clientX - startX;
+        const spanMs = STATE.windowDays * 86400 * 1000;
+        const plotW = Math.max(900, 900 * STATE.zoom);
+        STATE.endTime = startEnd - (dx / plotW) * spanMs;
+        renderRadar(getFiltered());
+      });
+      window.addEventListener('mouseup', () => { dragging = false; });
+    })();
+
+    fetchData();
+    setInterval(fetchData, 30000);
+  </script>
+</body>
+</html>

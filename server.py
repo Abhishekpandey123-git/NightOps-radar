@@ -13,7 +13,8 @@ import sys
 import json
 import time
 import threading
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+import csv, io
 from urllib.parse import urlparse, parse_qs
 
 def load_dotenv(filepath=".env"):
@@ -65,6 +66,7 @@ load_dotenv()
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from backend.ai_gateway import AIGateway
 from backend.scout import GSoCScout
+from backend.tg_scout import TelegramMarketScout
 
 PORT = int(os.getenv("PORT", "8080"))
 HOST = os.getenv("HOST", "0.0.0.0")
@@ -93,6 +95,18 @@ def load_config():
 CONFIG = load_config()
 AI = AIGateway()
 SCOUT = GSoCScout(config=CONFIG, ai_gateway=AI)
+TG_SCOUT = TelegramMarketScout("telegram_config.yaml")
+TG_TOKEN_KEYS = ["TG_API_ID", "TG_API_HASH", "TG_SESSION", "GEMINI_API_KEY", "GROQ_API_KEY", "OPENROUTER_API_KEY", "HF_TOKEN", "OPENAI_API_KEY", "OLLAMA_URL"]
+
+def tg_background_scheduler():
+    time.sleep(3)
+    while True:
+        try:
+            if not TG_SCOUT.paused:
+                TG_SCOUT.poll_all()
+        except Exception as e:
+            print(f"[TG-Daemon] Poller warning: {e}")
+        time.sleep(max(15, TG_SCOUT.poll_interval))
 
 # Continuous Strategy 2 Tiered Polling Worker
 def background_scheduler():
@@ -270,6 +284,86 @@ class RadarRequestHandler(SimpleHTTPRequestHandler):
             self.end_headers()
             return
 
+        elif path in ["/telegram", "/telegram.html"]:
+            self.path = "/telegram.html"
+            return super().do_GET()
+
+        elif path == "/api/tg/health":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "status": "ok",
+                "sources": len(TG_SCOUT.get_sources()),
+                "listings": len(TG_SCOUT.listings_db),
+                "telethon_configured": bool(os.environ.get("TG_API_ID") and os.environ.get("TG_API_HASH") and os.environ.get("TG_SESSION")),
+                "ai_available": TG_SCOUT.ai_gateway.is_available(),
+                "paused": TG_SCOUT.paused,
+                "poll_interval": TG_SCOUT.poll_interval,
+                "last_poll": TG_SCOUT.last_poll_iso,
+                "stats": TG_SCOUT.last_poll_stats
+            }).encode("utf-8"))
+            return
+
+        elif path == "/api/tg/listings":
+            items = sorted(TG_SCOUT.listings_db.values(), key=lambda x: x.get("releasedAt", ""), reverse=True)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "count": len(items),
+                "last_poll": TG_SCOUT.last_poll_iso,
+                "sources": TG_SCOUT.get_sources(),
+                "listings": items
+            }, ensure_ascii=False).encode("utf-8"))
+            return
+
+        elif path == "/api/tg/sources":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"sources": TG_SCOUT.get_sources()}).encode("utf-8"))
+            return
+
+        elif path == "/api/tg/tokens":
+            masked = {k: mask_token(os.environ.get(k, "")) for k in TG_TOKEN_KEYS}
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "tokens": masked,
+                "telethon_ready": bool(os.environ.get("TG_API_ID") and os.environ.get("TG_API_HASH") and os.environ.get("TG_SESSION"))
+            }).encode("utf-8"))
+            return
+
+        elif path == "/api/tg/export.json":
+            items = sorted(TG_SCOUT.listings_db.values(), key=lambda x: x.get("releasedAt", ""), reverse=True)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Disposition", "attachment; filename=telegram_market_intel.json")
+            self.end_headers()
+            self.wfile.write(json.dumps(items, indent=2, ensure_ascii=False).encode("utf-8"))
+            return
+
+        elif path == "/api/tg/export.csv":
+            items = sorted(TG_SCOUT.listings_db.values(), key=lambda x: x.get("releasedAt", ""), reverse=True)
+            buf = io.StringIO()
+            w = csv.writer(buf)
+            w.writerow(["Timestamp", "Intent", "Product Name", "Category", "Price", "Client Handle", "Payment Methods", "Source", "Source Type", "URL", "Summary"])
+            for it in items:
+                w.writerow([
+                    it.get("releasedAt", ""), it.get("intent", ""), it.get("productName", ""),
+                    it.get("category", ""), it.get("price", ""), it.get("clientHandle", ""),
+                    ", ".join(it.get("paymentMethods") or []), it.get("sourceName", ""),
+                    it.get("sourceType", ""), it.get("url", ""), it.get("summary", "").replace("\n", " ")
+                ])
+            self.send_response(200)
+            self.send_header("Content-Type", "text/csv; charset=utf-8")
+            self.send_header("Content-Disposition", "attachment; filename=telegram_market_intel.csv")
+            self.end_headers()
+            self.wfile.write(buf.getvalue().encode("utf-8"))
+            return
+
         elif path in ["/", "/radar"]:
             self.path = "/index.html"
 
@@ -391,6 +485,50 @@ class RadarRequestHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"status": "custom_poll_started"}).encode("utf-8"))
             return
 
+        if parsed.path.startswith("/api/tg/"):
+            length = int(self.headers.get("Content-Length", 0) or 0)
+            body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
+            try:
+                data = json.loads(body)
+            except Exception:
+                data = {}
+
+            if parsed.path == "/api/tg/poll":
+                res = TG_SCOUT.poll_all()
+            elif parsed.path == "/api/tg/poll/target":
+                sid = data.get("sourceId")
+                src = next((s for s in TG_SCOUT.get_sources() if s.get("id") == sid), None)
+                if not src:
+                    self.send_response(404); self.end_headers()
+                    self.wfile.write(json.dumps({"error": "Source not found"}).encode("utf-8"))
+                    return
+                items = TG_SCOUT.poll_source(src)
+                TG_SCOUT._save_cache()
+                res = {"status": "ok", "sourceId": sid, "fetched": len(items)}
+            elif parsed.path == "/api/tg/poll/settings":
+                if "paused" in data:
+                    TG_SCOUT.paused = bool(data["paused"])
+                if "interval" in data:
+                    TG_SCOUT.poll_interval = max(15, int(data["interval"]))
+                res = {"paused": TG_SCOUT.paused, "interval": TG_SCOUT.poll_interval}
+            elif parsed.path == "/api/tg/sources":
+                res = TG_SCOUT.add_source(data)
+            elif parsed.path == "/api/tg/sources/remove":
+                res = {"removed": TG_SCOUT.remove_source(data.get("sourceId", ""))}
+            elif parsed.path == "/api/tg/tokens":
+                updates = {k: str(data[k]).strip() for k in TG_TOKEN_KEYS if k in data and str(data[k]).strip()}
+                if updates:
+                    save_env_vars(updates)
+                res = {"status": "saved"}
+            else:
+                self.send_response(404); self.end_headers(); return
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(res).encode("utf-8"))
+            return
+
         if parsed.path in ["/api/gsoc/poll", "/api/gsoc/poll/target", "/api/gsoc/issue/deep_fetch", "/api/gsoc/issue/pin"]:
             return self.do_GET()
         self.send_response(404)
@@ -405,9 +543,11 @@ def main():
 
     t = threading.Thread(target=background_scheduler, daemon=True)
     t.start()
+    t_tg = threading.Thread(target=tg_background_scheduler, daemon=True)
+    t_tg.start()
 
-    HTTPServer.allow_reuse_address = True
-    server = HTTPServer((HOST, PORT), RadarRequestHandler)
+    ThreadingHTTPServer.allow_reuse_address = True
+    server = ThreadingHTTPServer((HOST, PORT), RadarRequestHandler)
     print(f"[Server] 🚀 Serving NightOps Radar on http://localhost:{PORT}")
     try:
         server.serve_forever()
